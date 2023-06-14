@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus } from "@nestjs/common";
+import { Body, Controller, HttpStatus, Param, ParseUUIDPipe } from "@nestjs/common";
 import { IResponse } from "../book.interface";
 import { BookDto, PaginationDto } from "../dto/book.dto";
 import { ObjectValidationPipe } from "../pipe/validation.pipe";
@@ -26,4 +26,14 @@ export class BookController {
             data: books,
         };
     }
+
+    async getABook(@Param('id', ParseUUIDPipe) id: string): Promise<IResponse> {
+        const book = await this.bookService.getABook(id);
+        return {
+            status: HttpStatus.OK,
+            message: 'Book retrieved successfully',
+            data: book,
+        };
+    }
+
 }
