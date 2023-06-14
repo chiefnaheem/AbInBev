@@ -7,3 +7,16 @@ export class BookDto {
   year: number;
   pages: number;
 }
+
+export class PaginationDto {
+  page: number = 1;
+  limit: number = 10;
+}
+
+export class BookReturnDto {
+    count: number;
+    limit: number;
+    currentPage: number;
+    totalPages: number;
+    books: BookDto[];
+}
