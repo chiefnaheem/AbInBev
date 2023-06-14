@@ -52,4 +52,19 @@ export class BookService {
         Object.assign(book, updateBook);
         return await this.bookRepository.save(book);
     }
+
+    async deleteBook(id: string): Promise<Book> {
+        const book = await this.bookRepository.findOneOrFail({
+            where: { id, deletedAt: null },
+        });
+        book.deletedAt = new Date();
+        return await this.bookRepository.save(book);
+    }
+
+    async hardDeleteBook(id: string): Promise<Book> {
+        const book = await this.bookRepository.findOneOrFail({
+            where: { id },
+        });
+        return await this.bookRepository.remove(book);
+    }
 }
