@@ -20,6 +20,7 @@ export class BookService {
   }
 
   async getAllBooks(data: PaginationDto): Promise<BookReturnDto> {
+    this.logger.log(`Get all books`);
     const { page, limit } = data;
     const skip = (page - 1) * limit;
     const [books, count] = await this.bookRepository.findAndCount({
@@ -39,32 +40,36 @@ export class BookService {
   }
 
   async getABook(id: string): Promise<Book> {
+    this.logger.log(`Get book ${id}`);
     const book = await this.bookRepository.findOneOrFail({
       where: { id, deletedAt: null },
     });
     return book;
-}
+  }
 
-    async updateBook(id: string, updateBook: BookDto): Promise<Book> {
-        const book = await this.bookRepository.findOneOrFail({
-            where: { id, deletedAt: null },
-        });
-        Object.assign(book, updateBook);
-        return await this.bookRepository.save(book);
-    }
+  async updateBook(id: string, updateBook: BookDto): Promise<Book> {
+    this.logger.log(`Update book ${id}`);
+    const book = await this.bookRepository.findOneOrFail({
+      where: { id, deletedAt: null },
+    });
+    Object.assign(book, updateBook);
+    return await this.bookRepository.save(book);
+  }
 
-    async deleteBook(id: string): Promise<Book> {
-        const book = await this.bookRepository.findOneOrFail({
-            where: { id, deletedAt: null },
-        });
-        book.deletedAt = new Date();
-        return await this.bookRepository.save(book);
-    }
+  async deleteBook(id: string): Promise<Book> {
+    this.logger.log(`Delete book ${id}`);
+    const book = await this.bookRepository.findOneOrFail({
+      where: { id, deletedAt: null },
+    });
+    book.deletedAt = new Date();
+    return await this.bookRepository.save(book);
+  }
 
-    async hardDeleteBook(id: string): Promise<Book> {
-        const book = await this.bookRepository.findOneOrFail({
-            where: { id },
-        });
-        return await this.bookRepository.remove(book);
-    }
+  async hardDeleteBook(id: string): Promise<Book> {
+    this.logger.log(`Hard delete book ${id}`);
+    const book = await this.bookRepository.findOneOrFail({
+      where: { id },
+    });
+    return await this.bookRepository.remove(book);
+  }
 }
