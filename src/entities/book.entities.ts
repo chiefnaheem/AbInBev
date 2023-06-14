@@ -6,25 +6,25 @@ export class Book {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({ nullable: false })
     title: string;
 
     @Column({ type: 'enum', enum: BookStatusEnum, default: BookStatusEnum.available})
     bookStatus: BookStatusEnum;
 
-    @Column()
+    @Column({ nullable: true })
     description: string;
 
-    @Column()
+    @Column({ nullable: false })
     author: string;
 
-    @Column()
+    @Column({ nullable: true })
     publisher: string;
 
-    @Column()
+    @Column({ nullable: false })
     year: number;
 
-    @Column()
+    @Column({ nullable: false })
     pages: number;
 
     @CreateDateColumn()

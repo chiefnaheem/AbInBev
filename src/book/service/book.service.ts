@@ -8,6 +8,6 @@ export class BookService {
     private readonly logger = new Logger(BookService.name);
   constructor(
     @InjectRepository(Book)
-    private readonly mediaRepository: Repository<Book>,
+    private readonly bookRepository: Repository<Book>,
   ) {}
 }
