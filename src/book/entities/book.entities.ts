@@ -1,8 +1,9 @@
 import { BookStatusEnum } from "../enum/book.enum";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Book {
+    @PrimaryColumn()
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

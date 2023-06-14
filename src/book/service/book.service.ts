@@ -1,7 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Book } from 'src/book/entities/book.entities';
-import { Repository } from 'typeorm';
+import { Book } from '../entities/book.entities';
+import { IsNull, Repository } from 'typeorm';
+import { isNull } from 'util';
 import { BookDto, BookReturnDto, PaginationDto } from '../dto/book.dto';
 
 @Injectable()
@@ -24,7 +25,7 @@ export class BookService {
     const { page, limit } = data;
     const skip = (page - 1) * limit;
     const [books, count] = await this.bookRepository.findAndCount({
-      where: { deletedAt: null },
+      where: { deletedAt: IsNull() },
       order: { createdAt: 'DESC' },
       skip,
       take: limit,

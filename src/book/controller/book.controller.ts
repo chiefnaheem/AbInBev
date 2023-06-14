@@ -5,7 +5,7 @@ import { ObjectValidationPipe } from "../pipe/validation.pipe";
 import { BookService } from "../service/book.service";
 import { createBookValidator, paginationValidator, updateBookValidator } from "../validator/book.validator";
 
-@Controller('book')
+@Controller('books')
 export class BookController {
     constructor(private readonly bookService: BookService) {}
 
@@ -29,6 +29,7 @@ export class BookController {
         };
     }
 
+
     @Get(':id')
     async getABook(@Param('id', ParseUUIDPipe) id: string): Promise<IResponse> {
         const book = await this.bookService.getABook(id);
@@ -38,6 +39,7 @@ export class BookController {
             data: book,
         };
     }
+   
 
     @Patch(':id')
     async updateBook(@Param('id', ParseUUIDPipe) id: string, @Body(new ObjectValidationPipe(updateBookValidator)) data: BookDto): Promise<IResponse> {
