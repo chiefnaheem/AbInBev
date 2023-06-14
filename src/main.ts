@@ -13,7 +13,6 @@ async function bootstrap() {
   app.enableCors();
   setupSwagger(app);
 
-
   // protect app from brute-force attacks
   app.use(
     rateLimit({
