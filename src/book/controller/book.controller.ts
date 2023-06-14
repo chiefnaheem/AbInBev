@@ -1,10 +1,12 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, ParseUUIDPipe, Patch, Post } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { IResponse } from "../book.interface";
 import { BookDto, PaginationDto } from "../dto/book.dto";
 import { ObjectValidationPipe } from "../pipe/validation.pipe";
 import { BookService } from "../service/book.service";
 import { createBookValidator, paginationValidator, updateBookValidator } from "../validator/book.validator";
 
+@ApiTags('books')
 @Controller('books')
 export class BookController {
     constructor(private readonly bookService: BookService) {}
