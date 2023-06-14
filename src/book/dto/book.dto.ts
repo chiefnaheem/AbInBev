@@ -9,8 +9,8 @@ export class BookDto {
 }
 
 export class PaginationDto {
-  page: number = 1;
-  limit: number = 10;
+  page: number;
+  limit: number;
 }
 
 export class BookReturnDto {

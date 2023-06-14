@@ -10,3 +10,18 @@ export const createBookValidator = Joi.object({
     year: Joi.number().required(),
     pages: Joi.number().required(),
 });
+
+export const updateBookValidator = Joi.object({
+    title: Joi.string().optional(),
+    bookStatus: Joi.string().valid(...Object.values(BookStatusEnum)).default(BookStatusEnum.available).optional(),
+    description: Joi.string().allow(null, '').optional(),
+    author: Joi.string().optional(),
+    publisher: Joi.string().allow(null, '').optional(),
+    year: Joi.number().optional(),
+    pages: Joi.number().optional(),
+});
+
+export const paginationValidator = Joi.object({
+    page: Joi.number().default(1),
+    limit: Joi.number().default(10),
+});
