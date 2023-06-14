@@ -5,21 +5,21 @@ import rateLimit from 'express-rate-limit';
 import { setupSwagger } from './api-docs.swagger';
 import serverConfig from './config/env.config';
 
-
 async function bootstrap() {
   const logger = new Logger('AbInBev Backend API');
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableCors();
+  setupSwagger(app);
 
-   // protect app from brute-force attacks
-   app.use(
+  // protect app from brute-force attacks
+  app.use(
     rateLimit({
       windowMs: 1 * 60 * 1000, // 15 minutes
       max: 100, // limit each IP to 100 requests per windowMs
     }),
   );
-  setupSwagger(app);
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
