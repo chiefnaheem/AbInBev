@@ -1,11 +1,13 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import rateLimit from 'express-rate-limit';
 import { setupSwagger } from './api-docs.swagger';
+import serverConfig from './config/env.config';
 
 
 async function bootstrap() {
+  const logger = new Logger('AbInBev Backend API');
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableCors();
@@ -24,6 +26,12 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-  await app.listen(3000);
+
+  // listen on port
+  const port = serverConfig.PORT;
+
+  await app.listen(port, () => {
+    logger.log(`Application listening on port ${port}`);
+  });
 }
 bootstrap();
