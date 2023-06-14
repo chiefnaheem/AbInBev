@@ -21,20 +21,35 @@ export class BookService {
 
   async getAllBooks(data: PaginationDto): Promise<BookReturnDto> {
     const { page, limit } = data;
-      const skip = (page - 1) * limit;
-      const [books, count] = await this.bookRepository.findAndCount({
-        where: { deletedAt: null },
-        order: { createdAt: 'DESC' },
-        skip,
-        take: limit,
-      });
-      const totalPages = Math.ceil(count / limit);
-      return {
-        count,
-        limit,
-        currentPage: page,
-        totalPages,
-        books,
-      };
+    const skip = (page - 1) * limit;
+    const [books, count] = await this.bookRepository.findAndCount({
+      where: { deletedAt: null },
+      order: { createdAt: 'DESC' },
+      skip,
+      take: limit,
+    });
+    const totalPages = Math.ceil(count / limit);
+    return {
+      count,
+      limit,
+      currentPage: page,
+      totalPages,
+      books,
+    };
+  }
+
+  async getABook(id: string): Promise<Book> {
+    const book = await this.bookRepository.findOneOrFail({
+      where: { id, deletedAt: null },
+    });
+    return book;
+}
+
+    async updateBook(id: string, updateBook: BookDto): Promise<Book> {
+        const book = await this.bookRepository.findOneOrFail({
+            where: { id, deletedAt: null },
+        });
+        Object.assign(book, updateBook);
+        return await this.bookRepository.save(book);
     }
 }
