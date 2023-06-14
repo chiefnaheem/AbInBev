@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import rateLimit from 'express-rate-limit';
 import { setupSwagger } from './api-docs.swagger';
 import serverConfig from './config/env.config';
+import { HttpExceptionFilter } from './exceptions/http.Exception.filter';
 
 async function bootstrap() {
   const logger = new Logger('AbInBev Backend API');
@@ -11,6 +12,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableCors();
   setupSwagger(app);
+
 
   // protect app from brute-force attacks
   app.use(
@@ -26,6 +28,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   // listen on port
   const port = serverConfig.PORT;
