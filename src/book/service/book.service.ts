@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Book } from 'src/entities/book.entities';
+import { Book } from 'src/book/entities/book.entities';
 import { Repository } from 'typeorm';
 import { BookDto, BookReturnDto, PaginationDto } from '../dto/book.dto';
 

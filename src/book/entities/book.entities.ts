@@ -1,4 +1,4 @@
-import { BookStatusEnum } from "src/book/enum/book.enum";
+import { BookStatusEnum } from "../enum/book.enum";
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()

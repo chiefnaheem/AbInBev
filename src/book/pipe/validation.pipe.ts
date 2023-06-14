@@ -9,6 +9,7 @@ export class ObjectValidationPipe implements PipeTransform {
       const value = await this.schema.unknown(false).validateAsync(data, { stripUnknown: true });
       return value;
     } catch (e) {
+        console.log(e.message)
       throw new BadRequestException(e.message);
     }
   }
