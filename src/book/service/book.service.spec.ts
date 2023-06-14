@@ -116,7 +116,7 @@ describe('BookService', () => {
       jest.spyOn(bookRepository, 'findOneOrFail').mockResolvedValue(book);
       jest.spyOn(bookRepository, 'remove').mockResolvedValue(book);
 
-      const result = await bookService.deleteBook(book.id);
+      const result = await bookService.hardDeleteBook(book.id);
 
       expect(result).toEqual(book);
     });
