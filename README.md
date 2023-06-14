@@ -32,6 +32,9 @@
 $ yarn install
 ```
 
+## Migrations
+Create a database table on mysql. Create a .env file in the root directory and fill in the required fields using the .env.sample file in the project directory. Then generate the migrations
+
 ## Running the app
 
 ```bash
