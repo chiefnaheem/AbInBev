@@ -34,9 +34,14 @@ export class PaginationDto {
 }
 
 export class BookReturnDto {
+  @ApiProperty({ example: 'Mars', description: 'The title of the book' })
   count: number;
+  @ApiProperty({ example: 1, description: 'The current page' })
   limit: number;
+  @ApiProperty({ example: 10, description: 'The limit of the page' })
   currentPage: number;
+  @ApiProperty({ example: 10, description: 'The total pages' })
   totalPages: number;
+  @ApiProperty()
   books: BookDto[];
 }
